@@ -22,7 +22,7 @@ func GetVersion() string {
 func HasNewVersion() bool {
 	DebugInfo("Checking version on server")
 
-	request := &HttpRequest{Method: "GET", Url: "https://tobias-melson.de/dev-tool-kit/version", Header: getHeaderForUpdate()}
+	request := &HttpRequest{Method: "GET", Url: "https://tobias-melson.de/dev-tool-kit/version"}
 	response := request.Perform()
 	remoteVersion := strings.TrimSpace(string(response.Body))
 
@@ -50,12 +50,6 @@ func UpgradeNow() error {
 		return errors.New("Error creating the request")
 	}
 
-	header := getHeaderForUpdate()
-
-	for key, value := range header {
-		request.Header.Add(key, value)
-	}
-
 	client := &http.Client{}
 	response, err := client.Do(request)
 	if err != nil {
@@ -76,10 +70,4 @@ func UpgradeNow() error {
 
 	DebugInfo("Upgrade successful")
 	return nil
-}
-
-func getHeaderForUpdate() map[string]string {
-	header := make(map[string]string)
-	header["Authorization"] = "Basic ZGV2LXRvb2xzOml0aDZ4ZWVS"
-	return header
 }
