@@ -1,62 +1,51 @@
 package core
 
 import (
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
 func TestCalculate(t *testing.T) {
 	result, err := Calculate("")
-	if err != nil || result != "" {
-		t.Error()
-	}
+	assert.Nil(t, err)
+	assert.Equal(t, "", result)
 
 	result, err = Calculate("5 / 2")
-	if err != nil || result != "2.5" {
-		t.Error()
-	}
+	assert.Nil(t, err)
+	assert.Equal(t, "2.5", result)
 
 	result, err = Calculate("40 / 2")
-	if err != nil || result != "20" {
-		t.Error()
-	}
+	assert.Nil(t, err)
+	assert.Equal(t, "20", result)
 
 	result, err = Calculate("0x42")
-	if err != nil || result != "66" {
-		t.Error()
-	}
+	assert.Nil(t, err)
+	assert.Equal(t, "66", result)
 
 	result, err = Calculate("0x4242")
-	if err != nil || result != "16962" {
-		t.Error()
-	}
+	assert.Nil(t, err)
+	assert.Equal(t, "16962", result)
 
 	result, err = Calculate("0b1001001")
-	if err != nil || result != "73" {
-		t.Error()
-	}
+	assert.Nil(t, err)
+	assert.Equal(t, "73", result)
 
 	result, err = Calculate("(0xa2+0b1001001-1)*0xA")
-	if err != nil || result != "2340" {
-		t.Error()
-	}
+	assert.Nil(t, err)
+	assert.Equal(t, "2340", result)
 
 	result, err = Calculate("11_2 == 0b11")
-	if err != nil || result != "1" {
-		t.Error()
-	}
+	assert.Nil(t, err)
+	assert.Equal(t, "1", result)
 
 	result, err = Calculate("Ab5_16 == 0xab5")
-	if err != nil || result != "1" {
-		t.Error()
-	}
+	assert.Nil(t, err)
+	assert.Equal(t, "1", result)
 
 	result, err = Calculate("AG10K_36 == 17543972")
-	if err != nil || result != "1" {
-		t.Error()
-	}
+	assert.Nil(t, err)
+	assert.Equal(t, "1", result)
 
 	result, err = Calculate("invalid")
-	if err == nil {
-		t.Error()
-	}
+	assert.NotNil(t, err)
 }

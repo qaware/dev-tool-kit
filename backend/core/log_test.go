@@ -1,42 +1,32 @@
 package core
 
 import (
+	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"
 )
 
 func deleteLogFile(t *testing.T) {
 	filename, err := GetLogFileName()
-	if err != nil {
-		t.Error(err)
-	}
+	assert.Nil(t, err)
 	err = os.Remove(filename)
-	if err != nil {
-		t.Error(err)
-	}
+	assert.Nil(t, err)
 }
 
 func TestWriteAndLoadLogFile(t *testing.T) {
 	message := "This is my\nlog message\nö?/#+*."
-	if !WriteLogFile(message) {
-		t.Error()
-	}
+	assert.True(t, WriteLogFile(message))
 
 	content, err := LoadLogFile()
-	if err != nil || content != message {
-		t.Error()
-	}
+	assert.Nil(t, err)
+	assert.Equal(t, message, content)
 
 	deleteLogFile(t)
 
 	empty, err := LoadLogFile()
-	if err != nil || empty != "" {
-		t.Error()
-	}
-
-	if !WriteLogFile(message) {
-		t.Error()
-	}
+	assert.Nil(t, err)
+	assert.Empty(t, empty)
+	assert.True(t, WriteLogFile(message))
 
 	deleteLogFile(t)
 }

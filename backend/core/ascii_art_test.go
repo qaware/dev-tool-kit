@@ -1,18 +1,16 @@
 package core
 
 import (
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
 func TestAsciiArt(t *testing.T) {
 	_, err := GenerateAsciiArt("42")
-	if err == nil {
-		t.Error()
-	}
+	assert.NotNil(t, err)
 
 	CreateAsciiFont()
 	text, err := GenerateAsciiArt("42")
-	if err != nil || text != "   __ __ ___ \n  / // /|__ \\\n / // /___/ /\n/__  __/ __/ \n  /_/ /____/ \n             \n" {
-		t.Error()
-	}
+	assert.Nil(t, err)
+	assert.Equal(t, "   __ __ ___ \n  / // /|__ \\\n / // /___/ /\n/__  __/ __/ \n  /_/ /____/ \n             \n", text)
 }

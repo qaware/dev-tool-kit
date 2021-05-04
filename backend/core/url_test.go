@@ -1,33 +1,28 @@
 package core
 
 import (
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
 func TestUrlEncode(t *testing.T) {
-	if UrlEncode("Töst /:?+") != "T%C3%B6st%20%2F%3A%3F%2B" {
-		t.Error()
-	}
+	assert.Equal(t, "T%C3%B6st%20%2F%3A%3F%2B", UrlEncode("Töst /:?+"))
 }
 
 func TestUrlDecode(t *testing.T) {
 	value, err := UrlDecode("T%C3%B6st%20%2F%3A%3F%2B")
-	if err != nil || value != "Töst /:?+" {
-		t.Error()
-	}
+	assert.Nil(t, err)
+	assert.Equal(t, "Töst /:?+", value)
 
 	value, err = UrlDecode("T%C3%B6st+%2F%3A%3F%2B")
-	if err != nil || value != "Töst /:?+" {
-		t.Error()
-	}
+	assert.Nil(t, err)
+	assert.Equal(t, "Töst /:?+", value)
 
 	value, err = UrlDecode("%")
-	if err == nil || value != "" {
-		t.Error()
-	}
+	assert.NotNil(t, err)
+	assert.Empty(t, value)
 
 	value, err = UrlDecode("")
-	if err != nil || value != "" {
-		t.Error()
-	}
+	assert.Nil(t, err)
+	assert.Empty(t, value)
 }

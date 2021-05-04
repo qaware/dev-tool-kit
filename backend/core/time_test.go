@@ -1,47 +1,41 @@
 package core
 
 import (
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
 func TestConvertToTimeString(t *testing.T) {
 	text, err := ConvertToTimeString("1578140592")
-	if err != nil || text != "2020-01-04T13:23:12+01:00" {
-		t.Error()
-	}
+	assert.Nil(t, err)
+	assert.Equal(t, "2020-01-04T13:23:12+01:00", text)
 
 	text, err = ConvertToTimeString("1578140592000")
-	if !IsInformation(err) || text != "2020-01-04T13:23:12+01:00" {
-		t.Error()
-	}
+	assert.True(t, IsInformation(err))
+	assert.Equal(t, "2020-01-04T13:23:12+01:00", text)
 
 	text, err = ConvertToTimeString("1578140592123")
-	if !IsInformation(err) || text != "2020-01-04T13:23:12+01:00" {
-		t.Error()
-	}
+	assert.True(t, IsInformation(err))
+	assert.Equal(t, "2020-01-04T13:23:12+01:00", text)
 }
 
 func TestConvertToTimestamp(t *testing.T) {
 	timestamp, err := ConvertToTimestamp("2020-01-04T12:23:00Z")
-	if err != nil || timestamp != "1578140580" {
-		t.Error()
-	}
+	assert.Nil(t, err)
+	assert.Equal(t, "1578140580", timestamp)
 
 	timestamp, err = ConvertToTimestamp("2020-01-04T13:23:00+01:00")
-	if err != nil || timestamp != "1578140580" {
-		t.Error()
-	}
+	assert.Nil(t, err)
+	assert.Equal(t, "1578140580", timestamp)
 
 	timestamp, err = ConvertToTimestamp("")
-	if err != nil || timestamp != "" {
-		t.Error()
-	}
+	assert.Nil(t, err)
+	assert.Empty(t, timestamp)
 }
 
 func TestTimeZone(t *testing.T) {
 	text, _ := ConvertToTimeString("1603407373")
 	timestamp, err := ConvertToTimestamp(text)
-	if err != nil || timestamp != "1603407373" {
-		t.Error()
-	}
+	assert.Nil(t, err)
+	assert.Equal(t, "1603407373", timestamp)
 }

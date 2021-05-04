@@ -1,42 +1,32 @@
 package core
 
 import (
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
 func TestBase64Encode(t *testing.T) {
-	if Base64Encode("Töst") != "VMO2c3Q=" {
-		t.Error()
-	}
+	assert.Equal(t, "VMO2c3Q=", Base64Encode("Töst"))
 }
 
 func TestBase64Decode(t *testing.T) {
 	value, err := Base64Decode("VMO2c3Q=")
-	if err != nil || value != "Töst" {
-		t.Error()
-	}
+	assert.Nil(t, err)
+	assert.Equal(t, "Töst", value)
 
 	value, err = Base64Decode("42")
-	if err == nil || value != "" {
-		t.Error()
-	}
+	assert.NotNil(t, err)
+	assert.Empty(t, value)
 
 	value, err = Base64Decode("")
-	if err != nil || value != "" {
-		t.Error()
-	}
+	assert.Nil(t, err)
+	assert.Empty(t, value)
 }
 
 func TestIsBase64EncodedLatin1(t *testing.T) {
-	if !IsBase64EncodedLatin1("VMO2c3Q=") {
-		t.Error()
-	}
+	assert.True(t, IsBase64EncodedLatin1("VMO2c3Q="))
 
-	if IsBase64EncodedLatin1("...") {
-		t.Error()
-	}
+	assert.False(t, IsBase64EncodedLatin1("..."))
 
-	if IsBase64EncodedLatin1("anything") {
-		t.Error()
-	}
+	assert.False(t, IsBase64EncodedLatin1("anything"))
 }

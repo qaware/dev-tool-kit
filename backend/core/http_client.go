@@ -4,6 +4,7 @@ import (
 	"errors"
 	"io/ioutil"
 	"net/http"
+	"sort"
 	"strings"
 	"time"
 )
@@ -93,8 +94,14 @@ func (request HttpRequest) GetCurl() string {
 		curl += "\"" + request.Url + "\""
 	}
 
-	for key, value := range request.Header {
-		curl += " -H \"" + key + ": " + value + "\""
+	keys := []string{}
+	for key := range request.Header {
+		keys = append(keys, key)
+	}
+	sort.Strings(keys)
+
+	for _, key := range keys {
+		curl += " -H \"" + key + ": " + request.Header[key] + "\""
 	}
 	return curl
 }

@@ -1,22 +1,20 @@
 package core
 
 import (
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
 func TestDiffTexts(t *testing.T) {
 	diff, count := DiffTexts("Ein Test", "Kein Test")
-	if count != 2 || diff != "<del id=\"diff-0\" style=\"background:#ffe6e6;\">E</del><ins id=\"diff-1\" style=\"background:#e6ffe6;\">Ke</ins><span>in Test</span>" {
-		t.Error()
-	}
+	assert.Equal(t, 2, count)
+	assert.Equal(t, "<del id=\"diff-0\" style=\"background:#ffe6e6;\">E</del><ins id=\"diff-1\" style=\"background:#e6ffe6;\">Ke</ins><span>in Test</span>", diff)
 
 	diff, count = DiffTexts("Ein Test", "Ein Test")
-	if count != 0 || diff != "<span>Ein Test</span>" {
-		t.Error()
-	}
+	assert.Zero(t, count)
+	assert.Equal(t, "<span>Ein Test</span>", diff)
 
 	diff, count = DiffTexts("", "")
-	if count != 0 || diff != "" {
-		t.Error()
-	}
+	assert.Zero(t, count)
+	assert.Empty(t, diff)
 }

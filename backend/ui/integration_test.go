@@ -2,53 +2,44 @@ package ui
 
 import (
 	"github.com/qaware/dev-tool-kit/backend/core"
+	"github.com/stretchr/testify/assert"
 	"strings"
 	"testing"
 )
 
 func TestIntegrationHttp(t *testing.T) {
 	err := handleHttpServerEvent([]string{"{\"foobar\":true}", "202", "8080"}, func(event string, content string, info string) {
-		if event != "httpServer.receive" {
-			t.Error()
-		}
-		if !strings.Contains(content, "Authorization: Basic bXlVc2VybmFtZTpteVBhc3N3b3Jk") {
-			t.Error()
-		}
-		if !strings.Contains(info, "GET") {
-			t.Error()
-		}
+		assert.Equal(t, "httpServer.receive", event)
+		assert.True(t, strings.Contains(content, "Authorization: Basic bXlVc2VybmFtZTpteVBhc3N3b3Jk"))
+		assert.True(t, strings.Contains(info, "GET"))
 	})
-	if err == nil || !core.IsInformation(err) || !strings.Contains(err.Error(), "8080") {
-		t.Error()
-	}
+	assert.NotNil(t, err)
+	assert.True(t, core.IsInformation(err))
+	assert.True(t, strings.Contains(err.Error(), "8080"))
 
 	ports, err := handlePortsEvent([]string{"localhost", "8080", "8080"})
-	if ports != "8080" || err == nil || !core.IsInformation(err) || err.Error() != "Found 1 open TCP port in range" {
-		t.Error()
-	}
+	assert.Equal(t, "8080", ports)
+	assert.NotNil(t, err)
+	assert.True(t, core.IsInformation(err))
+	assert.Equal(t, "Found 1 open TCP port in range", err.Error())
 
 	response, err := handleHttpClientEvent("send", "GET http://localhost:8080\nAuthorization: Basic myUsername myPassword")
-	if err == nil || !core.IsInformation(err) ||
-		!strings.HasPrefix(err.Error(), "202 Accepted") ||
-		!strings.HasPrefix(response, "Content-Length: 15\nContent-Type: application/json; charset=UTF-8") ||
-		!strings.HasSuffix(response, "{\n    \"foobar\": true\n}") {
-		t.Error()
-	}
+	assert.NotNil(t, err)
+	assert.True(t, core.IsInformation(err))
+	assert.True(t, strings.HasPrefix(err.Error(), "202 Accepted"))
+	assert.True(t, strings.HasPrefix(response, "Content-Length: 15\nContent-Type: application/json; charset=UTF-8"))
+	assert.True(t, strings.HasSuffix(response, "{\n    \"foobar\": true\n}"))
 
 	err = handleHttpServerEvent([]string{"", "", ""}, nil)
-	if err != nil {
-		t.Error()
-	}
+	assert.Nil(t, err)
 }
 
 func TestInvalidInputHttp(t *testing.T) {
 	err := handleHttpServerEvent([]string{"", "200", "12345678"}, nil)
-	if err == nil || err.Error() != "Invalid port" {
-		t.Error()
-	}
+	assert.NotNil(t, err)
+	assert.Equal(t, "Invalid port", err.Error())
 
 	_, err = handleHttpClientEvent("send", "GET http://localhost:9090")
-	if err == nil || err.Error() != "Connection refused" {
-		t.Error()
-	}
+	assert.NotNil(t, err)
+	assert.Equal(t, "Connection refused", err.Error())
 }

@@ -1,22 +1,20 @@
 package core
 
 import (
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
 func TestFormatJson(t *testing.T) {
 	text, err := FormatJson("_{<_")
-	if err == nil || text != "_{<_" {
-		t.Error()
-	}
+	assert.NotNil(t, err)
+	assert.Equal(t, "_{<_", text)
 
 	text, err = FormatJson("")
-	if err != nil || text != "" {
-		t.Error()
-	}
+	assert.Nil(t, err)
+	assert.Empty(t, text)
 
 	text, err = FormatJson("{\"key\":\"value\",\"bool\":true}")
-	if err != nil || text != "{\n    \"key\": \"value\",\n    \"bool\": true\n}" {
-		t.Error()
-	}
+	assert.Nil(t, err)
+	assert.Equal(t, "{\n    \"key\": \"value\",\n    \"bool\": true\n}", text)
 }
