@@ -1,0 +1,20 @@
+{
+  "name": "dev-tool-kit",
+  "description": "Developer tool kit",
+  "author": {
+    "name": "Tobias Melson",
+    "email": "tobias.melson@qaware.de"
+  },
+  "binaryname": "dev-tool-kit",
+  "frontend": {
+    "dir": "frontend",
+    "install": "npm install",
+    "build": "npm run build",
+    "bridge": "src"
+  },
+  "WailsVersion": "",
+  "CrossCompile": false,
+  "Platform": "",
+  "Architecture": "",
+  "LdFlags": ""
+}

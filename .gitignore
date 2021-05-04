@@ -1,0 +1,8 @@
+.idea/
+build/
+frontend/build/
+frontend/node_modules/
+*.manifest
+*.ico
+*.rc
+*.syso

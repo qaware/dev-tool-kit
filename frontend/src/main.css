@@ -1,0 +1,311 @@
+@font-face {
+    font-family: 'PTMono';
+    src: url('./fonts/PTMono-Regular.ttf') format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'PTSans';
+    src: url('./fonts/PTSans-Regular.ttf') format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'PTSans';
+    src: url('./fonts/PTSans-Bold.ttf') format('truetype');
+    font-weight: bold;
+}
+
+.waiting * {
+    cursor: wait !important;
+}
+
+.hidden {
+    display: none !important;
+}
+
+body {
+    font-family: 'PTSans', sans-serif;
+    background-color: #D4DDE5;
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    height: 100vh;
+    box-sizing: inherit;
+}
+
+#nav {
+    display: flex;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+}
+
+#page {
+    display: flex;
+    flex-grow: 1;
+}
+
+#page > div {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    width: 100%;
+}
+
+#pageDiff {
+    flex-direction: row !important;
+}
+
+#pageLicense {
+    overflow: auto;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+#licenseContent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 0;
+    margin: 0;
+    padding: 5px;
+}
+
+#pageLicenseButton {
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+#footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+#footerText {
+    flex-grow: 1;
+}
+
+#info {
+    color: blue;
+    margin-right: 5px;
+}
+
+#error {
+    color: red;
+    margin-right: 5px;
+}
+
+#upgrading {
+    margin-left: 10px;
+}
+
+a {
+    text-decoration: none;
+}
+
+span.button {
+    background-color: #28537D;
+    text-align: left;
+    color: #D4DDE5;
+    padding: 10px;
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: normal;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+span.button:hover {
+    box-shadow: 3px 3px #7E98B1;
+}
+
+span.button:hover .tooltip {
+    visibility: visible;
+}
+
+span.button i {
+    margin-right: 5px;
+}
+
+span.button.active {
+    cursor: default;
+    background-color: #18324B;
+}
+
+span.button.fade {
+    background-color: #7E98B1;
+}
+
+span.button.active:hover {
+    box-shadow: none;
+}
+
+span.toggle-button > .unchecked {
+    display: inline-block;
+}
+
+span.toggle-button > .checked {
+    display: none;
+}
+
+span.toggle-button.toggle-active > .unchecked {
+    display: none;
+}
+
+span.toggle-button.toggle-active > .checked {
+    display: inline-block;
+}
+
+#upgradeButton {
+    background-color: #FCA311;
+    color: #28537D;
+    margin-left: 10px;
+    margin-right: 0;
+}
+
+#clearButton {
+    margin-right: 0;
+    margin-left: auto;
+}
+
+#clearButton i {
+    margin-right: 0;
+}
+
+.icon-font {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.tooltip {
+    visibility: hidden;
+    background-color: #D4DDE5;
+    color: #000000;
+    padding: 5px;
+    min-width: 50%;
+    font-weight: normal;
+    white-space: nowrap;
+    position: absolute;
+    z-index: 1;
+    bottom: 5px;
+    left: 5px;
+}
+
+textarea, input {
+    font-family: 'PTMono', monospace;
+    font-size: 20px;
+    border: 0;
+    margin: 0;
+    padding: 5px;
+    margin-bottom: 10px;
+    background-color: white;
+    color: black;
+    outline: none;
+    flex-shrink: 0;
+}
+
+input[type=checkbox] {
+    margin: 0;
+}
+
+textarea {
+    resize: none;
+    overflow: auto;
+    flex-grow: 1;
+    white-space: pre;
+    word-wrap: normal;
+}
+
+textarea.soft-wrap {
+    white-space: pre-wrap;
+    word-break: break-all;
+    overflow-x: hidden;
+}
+
+textarea.soft-wrap-word {
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-x: hidden;
+}
+
+textarea.diff-left, textarea.diff-right {
+    height: unset;
+}
+
+textarea.diff-left {
+    margin-right: 10px;
+}
+
+textarea.diff-right {
+    margin-left: 10px;
+}
+
+.diff-container {
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    max-width: 50vw;
+}
+
+.diff-container > #outputDiffContainer {
+    border: 0;
+    margin: 0;
+    margin-bottom: 10px;
+    background-color: white;
+    overflow: auto;
+    height: 100%;
+    position: relative;
+}
+
+.diff {
+    font-family: 'PTMono', monospace;
+    font-size: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 0;
+    margin: 0;
+    padding: 5px;
+    color: black;
+    white-space: pre;
+    word-wrap: normal;
+}
+
+.diff ins {
+    background-color: #00FF00 !important;
+    text-decoration: none;
+}
+
+.diff del {
+    background-color: #FF0000 !important;
+    text-decoration: none;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.row > input {
+    margin-right: 10px;
+}
+
+.row > .right-align {
+    margin-right: 0;
+}
+
+.grow {
+    flex-grow: 1;
+}

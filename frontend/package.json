@@ -1,0 +1,25 @@
+{
+  "name": "frontend",
+  "description": "test",
+  "private": true,
+  "scripts": {
+    "build": "npx webpack"
+  },
+  "dependencies": {
+    "core-js": "^3.6.4",
+    "@wailsapp/runtime": "^1.0.6"
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^6.0.2",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "css-loader": "^5.0.0",
+    "url-loader": "^4.1.1",
+    "style-loader": "^2.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}
