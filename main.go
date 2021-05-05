@@ -7,7 +7,7 @@ import (
 	"github.com/wailsapp/wails"
 )
 
-var version = "2.5.0"
+var version = "3.0.1"
 
 func main() {
 	js := mewn.String("./frontend/build/main.js")
