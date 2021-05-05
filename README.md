@@ -24,7 +24,7 @@ Among others, the following tools are included:
 
 ### Customization
 
-You can add a custom tab to the DevToolKit. Create a new file `pages.xml` next to the executable.
+You can add a custom tab to the DevToolKit. Create a new file called `pages.xml` in the same directory as the executable.
 Here is an example for a simple HTML page with just a single link:
 
 ```XML
@@ -44,6 +44,10 @@ Here is an example for a simple HTML page with just a single link:
 Here, `<name>` must be a unique name, `<title>` is the button label, `<tooltip>` is the text for the button tooltip,
  `<icon>` is the [Font Awesome](https://fontawesome.com/v5.14.0/icons?d=gallery&m=free) icon,
 and `<body>` is the HTML source of the page.
+
+### Errors
+
+In case of a crash, a stack trace is written to the file `panic.txt` in the same directory as the executable. If you raise a bug report, please attach the content of this file.
 
 ## Development
 
