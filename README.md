@@ -1,7 +1,7 @@
 
 # DevToolKit
 
-![Build status](https://github.com/qaware/dev-tool-kit/actions/workflows/build.yml/badge.svg)
+[![Build status](https://github.com/qaware/dev-tool-kit/actions/workflows/build.yml/badge.svg)](https://github.com/qaware/dev-tool-kit/actions/workflows/build.yml)
 
 This repository contains a desktop application with many useful tools for software developers.
 It is written in Go using [Wails](http://wails.app/) for providing a multi-platform GUI.
