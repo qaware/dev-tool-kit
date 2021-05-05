@@ -1,6 +1,7 @@
 package core
 
 import (
+	"encoding/json"
 	"errors"
 	"github.com/inconshreveable/go-update"
 	"net/http"
@@ -10,6 +11,14 @@ import (
 )
 
 var version string
+
+type GitHub struct {
+	TagName string `json:"tag_name"`
+	Assets  []struct {
+		Name               string `json:"name"`
+		BrowserDownloadUrl string `json:"browser_download_url"`
+	} `json:"assets"`
+}
 
 func InitUpgrade(currentVersion string) {
 	version = currentVersion
@@ -22,18 +31,26 @@ func GetVersion() string {
 func HasNewVersion() bool {
 	DebugInfo("Checking version on server")
 
-	request := &HttpRequest{Method: "GET", Url: "https://tobias-melson.de/dev-tool-kit/version"}
-	response := request.Perform()
-	remoteVersion := strings.TrimSpace(string(response.Body))
+	remoteVersion, err := getLatestVersion()
+	if err != nil {
+		DebugError(err)
+		return false
+	}
 
 	DebugInfo("Local version " + version)
 	DebugInfo("Remote version " + remoteVersion)
 
-	return response.IsOk() && remoteVersion != version
+	return remoteVersion != version
 }
 
 func UpgradeNow() error {
-	DebugInfo("Upgrading to new version")
+	DebugInfo("Upgrading to latest version")
+
+	remoteVersion, err := getLatestVersion()
+	if err != nil {
+		DebugError(err)
+		return err
+	}
 
 	exe, err := os.Executable()
 	if err != nil {
@@ -44,7 +61,9 @@ func UpgradeNow() error {
 	exeName := filepath.Base(exe)
 	DebugInfo("Downloading executable " + exeName)
 
-	request, err := http.NewRequest("GET", "https://tobias-melson.de/dev-tool-kit/"+exeName, nil)
+	url := "https://github.com/qaware/dev-tool-kit/releases/download/v" + remoteVersion + "/" + exeName
+	DebugInfo("Downloading " + url)
+	request, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		DebugError(err)
 		return errors.New("Error creating the request")
@@ -70,4 +89,24 @@ func UpgradeNow() error {
 
 	DebugInfo("Upgrade successful")
 	return nil
+}
+
+func getLatestVersion() (string, error) {
+	request := &HttpRequest{Method: "GET", Url: "https://api.github.com/repos/qaware/dev-tool-kit/releases/latest"}
+	response := request.Perform()
+
+	if response.Failed {
+		return "", errors.New(response.ErrorMessage)
+	}
+	if !response.IsOk() {
+		return "", errors.New("Response code from GitHub:" + response.Code)
+	}
+
+	var githubResponse GitHub
+	err := json.Unmarshal(response.Body, &githubResponse)
+	if err != nil {
+		return "", err
+	}
+
+	return strings.TrimLeft(githubResponse.TagName, "v"), nil
 }
