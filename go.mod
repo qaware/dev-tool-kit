@@ -20,7 +20,7 @@ require (
 	github.com/soniah/evaler v2.2.0+incompatible
 	github.com/square/go-jose/v3 v3.0.0-20200630053402-0a67ce9b0693
 	github.com/stretchr/testify v1.6.1
-	github.com/wailsapp/wails v1.13.1
+	github.com/wailsapp/wails v1.8.0
 	golang.org/x/crypto v0.0.0-20210503195802-e9a32991a82e
 	golang.org/x/image v0.0.0-20210504121937-7319ad40d33e // indirect
 	golang.org/x/net v0.0.0-20210521195947-fe42d452be8f // indirect
