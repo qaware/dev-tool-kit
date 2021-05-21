@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-var version = "3.2.0"
+var version = "3.3.0"
 
 func main() {
 	js := mewn.String("./frontend/build/main.js")
