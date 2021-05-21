@@ -1,7 +1,7 @@
 .PHONY: build build-debug clean
 
 WAILS=$$(go env GOPATH)/bin/wails
-WAILS_VERSION=1.8.0
+WAILS_VERSION=1.13.1
 BUILD_DIR=build/github.com/qaware
 
 build:
