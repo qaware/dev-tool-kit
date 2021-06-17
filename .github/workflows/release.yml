@@ -4,12 +4,12 @@ on:
     tags: [ 'v*' ]
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
       - uses: actions/setup-go@v2
         with:
-          go-version: '1.13'
+          go-version: '1.16.5'
       - run: sudo apt-get update && sudo apt-get upgrade
       - run: sudo apt-get install build-essential libgtk-3-dev libwebkit2gtk-4.0-dev
       - run: make build

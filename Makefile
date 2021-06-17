@@ -1,7 +1,7 @@
 .PHONY: build build-debug clean
 
 WAILS=$$(go env GOPATH)/bin/wails
-WAILS_VERSION=1.8.0
+WAILS_VERSION=1.16.3
 BUILD_DIR=build/github.com/qaware
 
 build:
@@ -11,6 +11,7 @@ build:
 	${WAILS} build -f -x darwin/amd64 && mv ${BUILD_DIR}/dev-tool-kit-darwin-*-amd64 ${BUILD_DIR}/dev-tool-kit-darwin-amd64
 
 build-debug:
+	go get -u github.com/wailsapp/wails@v${WAILS_VERSION}
 	go get -u github.com/wailsapp/wails/cmd/wails@v${WAILS_VERSION}
 	${WAILS} build -f -d
 

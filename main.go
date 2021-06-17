@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/leaanthony/mewn"
+	_ "embed"
 	"github.com/qaware/dev-tool-kit/backend/core"
 	"github.com/qaware/dev-tool-kit/backend/ui"
 	"github.com/wailsapp/wails"
@@ -12,12 +12,15 @@ import (
 	"time"
 )
 
-var version = "3.3.1"
+var version = "3.4.0"
+
+//go:embed frontend/build/main.js
+var js string
+
+//go:embed frontend/build/main.css
+var css string
 
 func main() {
-	js := mewn.String("./frontend/build/main.js")
-	css := mewn.String("./frontend/build/main.css")
-
 	app := wails.CreateApp(&wails.AppConfig{
 		Width:     1300,
 		Height:    800,
