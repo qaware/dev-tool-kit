@@ -2,6 +2,7 @@
 # DevToolKit
 
 [![Build status](https://github.com/qaware/dev-tool-kit/actions/workflows/build.yml/badge.svg)](https://github.com/qaware/dev-tool-kit/actions/workflows/build.yml)
+![Go version 1.16 required](https://img.shields.io/github/go-mod/go-version/qaware/dev-tool-kit)
 
 This repository contains a desktop application with many useful tools for software developers.
 It is written in Go using [Wails](http://wails.app/) for providing a multi-platform GUI.
