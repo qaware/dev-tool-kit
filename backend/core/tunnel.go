@@ -42,8 +42,12 @@ func (tunnel *SshTunnel) Start() error {
 }
 
 func (tunnel *SshTunnel) Stop() error {
-	_ = tunnel.RemoteConnection.Close()
-	_ = tunnel.LocalConnection.Close()
+	if tunnel.RemoteConnection != nil {
+		_ = tunnel.RemoteConnection.Close()
+	}
+	if tunnel.LocalConnection != nil {
+		_ = tunnel.LocalConnection.Close()
+	}
 	return tunnel.Listener.Close()
 }
 

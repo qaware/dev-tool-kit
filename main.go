@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-var version = "3.4.1"
+var version = "3.4.2"
 
 //go:embed frontend/build/main.js
 var js string
