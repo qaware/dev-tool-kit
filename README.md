@@ -51,6 +51,10 @@ In case of a crash, a stack trace is written to the file `panic.txt` in the same
 
 ## Development
 
+### Install Wails
+
+See https://wails.app/gettingstarted/ to learn how to setup Wails on your platform.
+
 ### Build locally
 
 Checkout the code and run `make build-debug` to quickly build a development version with debug logging enabled. The artifact will appear in `build/`.
